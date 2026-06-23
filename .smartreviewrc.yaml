@@ -1,0 +1,20 @@
+base_branch: main
+
+# Algorithm filter — specify enable OR disable, not both
+# enable:
+#   - jaccard
+#   - cosine-tfidf
+#   - semgrep
+
+# disable:
+#   - semgrep
+
+# External checkers (stdout must use file:line: message format)
+# external_checkers:
+#   - name: eslint
+#     command: "eslint --format unix ."
+#   - name: tsc-check
+#     command: "tsc --noEmit"
+
+jaccard_threshold: 0.8
+cosine_threshold: 0.75
