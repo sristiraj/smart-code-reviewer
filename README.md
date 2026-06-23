@@ -26,34 +26,28 @@ Three components work together:
 
 ## Installation
 
-Smart Code Reviewer has two parts that work together:
-
-| Part | What it does | Required for |
-|------|-------------|--------------|
-| **`smart-review` binary** | Runs the actual detection algorithms | Everything — pre-commit hooks, AI agent skills, CI |
-| **Agent skills** (`/smart-review`, `/smart-review-init`) | Teach your AI agent how to invoke the binary | Using `/smart-review` inside Claude Code / Codex / Cursor |
-
-Install both in two steps:
+### One command — no prior setup needed
 
 ```bash
-# Step 1 — install the binary globally
-npm install -g smart-code-reviewer
-
-# Step 2 — install the agent skills (uses the binary you just installed)
-smart-review install-plugin
-# installs to ~/.claude/skills by default (Claude Code)
+npx smart-code-reviewer install-plugin
 ```
 
-That's the complete setup. The skill files on their own do nothing — when an AI agent runs `/smart-review`, it executes `smart-review scan` as a shell command, which requires the binary to be present.
+This does everything in one step:
+1. Installs the `smart-review` binary globally via npm (skipped if already present)
+2. Copies the agent skills (`/smart-review`, `/smart-review-init`) into `~/.claude/skills`
 
-### Install skills for a different agent
+No `npm install -g` first. No separate skill copy step. `npx` handles the bootstrap.
+
+> **Why both are needed:** The agent skills (`/smart-review`, `/smart-review-init`) are instructions that tell your AI agent what to do. When the agent runs `/smart-review`, it shells out to `smart-review scan`. If the binary is not installed, that command fails. `install-plugin` installs both so they work together.
+
+### Install for a different agent
 
 ```bash
 # Cursor
-smart-review install-plugin --target ~/.cursor/skills
+npx smart-code-reviewer install-plugin --target ~/.cursor/skills
 
 # Any custom skills directory
-smart-review install-plugin --target /path/to/agent/skills
+npx smart-code-reviewer install-plugin --target /path/to/agent/skills
 ```
 
 ### Install from the plugin marketplace
@@ -67,14 +61,15 @@ smart-review install-plugin --target /path/to/agent/skills
 
 **Cursor** — Search for `smart-code-reviewer` in the Cursor plugin marketplace.
 
-> The marketplace installs both the binary and the skills in one step.
+### Skills only (binary already managed separately)
 
-### Install skills from GitHub (binary already installed via other means)
-
-If you already have `smart-review` in your PATH (installed via npm on another machine, or via a company package registry):
+If your team manages the binary via a company package registry or a shared tool install, you can copy the skills without touching the binary:
 
 ```bash
-smart-review install-plugin --from https://github.com/sraj5gilead/smart-code-reviewer
+npx smart-code-reviewer install-plugin --no-binary
+
+# Or pull skills directly from the git repo
+npx smart-code-reviewer install-plugin --from https://github.com/sraj5gilead/smart-code-reviewer --no-binary
 ```
 
 ---

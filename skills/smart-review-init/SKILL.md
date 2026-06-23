@@ -10,6 +10,34 @@ Help the engineer create a `.smartreviewrc.yaml` configuration file for their re
 
 ## Workflow
 
+### Step 0 — Ensure the binary is installed
+
+Before doing anything else, check whether the `smart-review` binary is available:
+
+```bash
+which smart-review
+```
+
+**If found:** continue to Step 1.
+
+**If not found:** tell the engineer:
+
+> "The `smart-review` binary isn't installed yet. I'll install it now — this also copies the agent skills into `~/.claude/skills`."
+
+Then run:
+
+```bash
+npx smart-code-reviewer install-plugin
+```
+
+This installs the binary globally via npm and copies the agent skills in one step. After it completes, confirm `smart-review` is now in PATH:
+
+```bash
+smart-review --help
+```
+
+If the install fails, tell the engineer to run it manually and show the exact command. Do not continue to config setup until the binary is confirmed present.
+
 ### Step 1 — Check for an existing config
 
 Read `.smartreviewrc.yaml` in the current working directory.

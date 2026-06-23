@@ -1,7 +1,7 @@
 import * as fs from 'fs';
 import * as os from 'os';
 import * as path from 'path';
-import { execFile } from 'child_process';
+import { execFile, execFileSync } from 'child_process';
 import { promisify } from 'util';
 
 const execFileAsync = promisify(execFile);
@@ -9,6 +9,7 @@ const execFileAsync = promisify(execFile);
 export interface InstallPluginOptions {
   from?: string;
   target: string;
+  installBinary?: boolean;
   out?: NodeJS.WritableStream;
   errOut?: NodeJS.WritableStream;
 }
@@ -34,10 +35,40 @@ function copyDir(src: string, dest: string): void {
   }
 }
 
+function binaryInPath(): boolean {
+  try {
+    execFileSync('smart-review', ['--version'], { stdio: 'ignore' });
+    return true;
+  } catch {
+    try {
+      // commander exits non-zero for --version on some configs, check help instead
+      execFileSync('smart-review', ['--help'], { stdio: 'ignore' });
+      return true;
+    } catch {
+      return false;
+    }
+  }
+}
+
+async function installBinaryGlobally(out: NodeJS.WritableStream): Promise<void> {
+  log('Installing smart-review binary globally via npm ...', out);
+  await execFileAsync('npm', ['install', '-g', 'smart-code-reviewer']);
+  log('Binary installed. smart-review is now available in your PATH.', out);
+}
+
 export async function installPlugin(options: InstallPluginOptions): Promise<void> {
   const out = options.out ?? process.stdout;
-  const errOut = options.errOut ?? process.stderr;
 
+  // --- Step 1: install binary if requested or if not already present ---
+  if (options.installBinary !== false) {
+    if (binaryInPath()) {
+      log('smart-review binary already available in PATH — skipping binary install.', out);
+    } else {
+      await installBinaryGlobally(out);
+    }
+  }
+
+  // --- Step 2: resolve skills source ---
   let sourceRoot: string;
   let tmpDir: string | null = null;
 
@@ -52,11 +83,10 @@ export async function installPlugin(options: InstallPluginOptions): Promise<void
     }
     sourceRoot = tmpDir;
   } else {
-    // Use the local package — skills/ is co-located with the installed binary
-    // Walk up from this file's location to find skills/
     sourceRoot = findPackageRoot(__dirname);
   }
 
+  // --- Step 3: copy skills ---
   const skillsSrc = path.join(sourceRoot, 'skills');
   if (!fs.existsSync(skillsSrc)) {
     if (tmpDir) fs.rmSync(tmpDir, { recursive: true, force: true });
@@ -82,7 +112,7 @@ export async function installPlugin(options: InstallPluginOptions): Promise<void
 function findPackageRoot(startDir: string): string {
   let dir = startDir;
   for (let i = 0; i < 10; i++) {
-    if (fs.existsSync(path.join(dir, 'plugin.yaml'))) return dir;
+    if (fs.existsSync(path.join(dir, 'skills'))) return dir;
     const parent = path.dirname(dir);
     if (parent === dir) break;
     dir = parent;

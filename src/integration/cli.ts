@@ -106,19 +106,30 @@ export async function runCli(
   // Plugin install command
   program
     .command('install-plugin')
-    .description('Install smart-review skills into an AI coding agent skills directory')
+    .description(
+      'Install the smart-review binary (if not already present) and agent skills in one step. ' +
+      'Safe to run via npx: npx smart-code-reviewer install-plugin'
+    )
     .option(
       '--from <git-url>',
-      'Git repository URL to clone the plugin from (omit to install from local package)'
+      'Git repository URL to clone the plugin from (omit to install from the local package)'
     )
     .option(
       '--target <dir>',
       'Target skills directory',
       DEFAULT_SKILLS_DIR
     )
-    .action(async (opts: { from?: string; target: string }) => {
+    .option(
+      '--no-binary',
+      'Skip binary install — copy skills only (use when the binary is already managed externally)'
+    )
+    .action(async (opts: { from?: string; target: string; binary: boolean }) => {
       try {
-        await installPlugin({ from: opts.from, target: opts.target });
+        await installPlugin({
+          from: opts.from,
+          target: opts.target,
+          installBinary: opts.binary,
+        });
       } catch (err) {
         process.stderr.write(`smart-review error: ${(err as Error).message}\n`);
         process.exitCode = 2;
