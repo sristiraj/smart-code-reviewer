@@ -107,7 +107,7 @@ Show the engineer the complete YAML that will be written:
 ```yaml
 # .smartreviewrc.yaml
 # Smart Code Reviewer configuration
-# Docs: https://github.com/sraj5gilead/smart-code-reviewer
+# Docs: https://github.com/sristiraj/smart-code-reviewer
 
 base_branch: <value>
 
@@ -150,7 +150,7 @@ After writing the file, tell the engineer:
    ```
 4. **Install the skill for teammates** — anyone on the team can get the `/smart-review` and `/smart-review-init` skills by running:
    ```bash
-   smart-review install-plugin --from https://github.com/sraj5gilead/smart-code-reviewer
+   smart-review install-plugin --from https://github.com/sristiraj/smart-code-reviewer
    ```
 
 ## Rules

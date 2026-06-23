@@ -8,7 +8,7 @@
       "name": "smart-code-reviewer",
       "source": {
         "source": "url",
-        "url": "https://github.com/sraj5gilead/smart-code-reviewer.git"
+        "url": "https://github.com/sristiraj/smart-code-reviewer.git"
       },
       "policy": {
         "installation": "AVAILABLE",

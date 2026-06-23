@@ -3,11 +3,11 @@
   "version": "0.1.0",
   "description": "Deterministic code drift detection for AI-generated code. Catches duplication, spec drift, and guideline violations before they reach the repo.",
   "author": {
-    "name": "sraj5gilead",
-    "url": "https://github.com/sraj5gilead"
+    "name": "sristiraj",
+    "url": "https://github.com/sristiraj"
   },
-  "homepage": "https://github.com/sraj5gilead/smart-code-reviewer",
-  "repository": "https://github.com/sraj5gilead/smart-code-reviewer",
+  "homepage": "https://github.com/sristiraj/smart-code-reviewer",
+  "repository": "https://github.com/sristiraj/smart-code-reviewer",
   "license": "MIT",
   "keywords": [
     "code-review",

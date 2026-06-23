@@ -54,7 +54,7 @@ npx smart-code-reviewer install-plugin --target /path/to/agent/skills
 
 **Claude Code**
 ```
-/plugin marketplace add sraj5gilead/smart-code-reviewer
+/plugin marketplace add sristiraj/smart-code-reviewer
 ```
 
 **Codex** — Register the marketplace source pointing to this repo, then install `smart-code-reviewer` from the plugin list.
@@ -69,7 +69,7 @@ If your team manages the binary via a company package registry or a shared tool 
 npx smart-code-reviewer install-plugin --no-binary
 
 # Or pull skills directly from the git repo
-npx smart-code-reviewer install-plugin --from https://github.com/sraj5gilead/smart-code-reviewer --no-binary
+npx smart-code-reviewer install-plugin --from https://github.com/sristiraj/smart-code-reviewer --no-binary
 ```
 
 ---
@@ -151,7 +151,7 @@ smart-review scan --mode diff
 ```yaml
 # .pre-commit-config.yaml
 repos:
-  - repo: https://github.com/sraj5gilead/smart-code-reviewer
+  - repo: https://github.com/sristiraj/smart-code-reviewer
     rev: v0.1.0
     hooks:
       - id: smart-review

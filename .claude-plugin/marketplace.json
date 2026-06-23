@@ -1,8 +1,8 @@
 {
   "name": "smart-code-reviewer-plugin",
   "owner": {
-    "name": "sraj5gilead",
-    "url": "https://github.com/sraj5gilead"
+    "name": "sristiraj",
+    "url": "https://github.com/sristiraj"
   },
   "metadata": {
     "description": "Plugin marketplace entry for Smart Code Reviewer — deterministic drift detection for AI-generated code",
@@ -13,10 +13,10 @@
       "name": "smart-code-reviewer",
       "description": "Catch code drift before it hits the repo. Detects duplication, spec drift, and guideline violations in AI-generated code using deterministic checks.",
       "author": {
-        "name": "sraj5gilead",
-        "url": "https://github.com/sraj5gilead"
+        "name": "sristiraj",
+        "url": "https://github.com/sristiraj"
       },
-      "homepage": "https://github.com/sraj5gilead/smart-code-reviewer",
+      "homepage": "https://github.com/sristiraj/smart-code-reviewer",
       "tags": [
         "code-review",
         "ai",

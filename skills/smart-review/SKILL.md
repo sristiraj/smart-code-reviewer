@@ -70,10 +70,10 @@ Anyone working on a different project can install this skill into their AI codin
 
 ```bash
 # Install into Claude Code (default target: ~/.claude/skills)
-smart-review install-plugin --from https://github.com/sraj5gilead/smart-code-reviewer
+smart-review install-plugin --from https://github.com/sristiraj/smart-code-reviewer
 
 # Install into a custom skills directory
-smart-review install-plugin --from https://github.com/sraj5gilead/smart-code-reviewer --target ~/.cursor/skills
+smart-review install-plugin --from https://github.com/sristiraj/smart-code-reviewer --target ~/.cursor/skills
 ```
 
 ## RC File
