@@ -1,0 +1,24 @@
+{
+  "name": "smart-code-reviewer",
+  "displayName": "Smart Code Reviewer",
+  "version": "0.1.0",
+  "description": "Deterministic code drift detection for AI-generated code. Catches duplication, spec drift, and guideline violations before they reach the repo.",
+  "author": {
+    "name": "sraj5gilead",
+    "url": "https://github.com/sraj5gilead"
+  },
+  "homepage": "https://github.com/sraj5gilead/smart-code-reviewer",
+  "repository": "https://github.com/sraj5gilead/smart-code-reviewer",
+  "license": "MIT",
+  "keywords": [
+    "cursor",
+    "plugin",
+    "code-review",
+    "ai",
+    "static-analysis",
+    "pre-commit",
+    "drift-detection",
+    "duplication",
+    "typescript"
+  ]
+}

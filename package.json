@@ -10,7 +10,9 @@
   "files": [
     "dist/",
     "skills/",
-    "plugin.yaml"
+    ".claude-plugin/",
+    ".codex-plugin/",
+    ".cursor-plugin/"
   ],
   "scripts": {
     "build": "tsc",

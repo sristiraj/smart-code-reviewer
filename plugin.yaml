@@ -1,7 +1,0 @@
-name: smart-code-reviewer
-version: 0.1.0
-description: Deterministic code drift detection for AI-generated code
-skills:
-  - name: smart-review
-    path: skills/smart-review/SKILL.md
-    description: Run smart-review drift detection inside an AI coding session

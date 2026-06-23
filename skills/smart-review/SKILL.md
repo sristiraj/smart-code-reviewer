@@ -1,9 +1,10 @@
 ---
 name: smart-review
-description: Run deterministic code drift detection on the current codebase. Use after generating or modifying code to check for duplication, spec drift, and guideline violations before committing.
+description: 'Run deterministic code drift detection on the current codebase. Use after generating or modifying code to check for duplication, spec drift, and guideline violations before committing. Invoke when the user says "check my code", "review before commit", or "run smart-review".'
+argument-hint: "[--mode full|diff] [--base-branch <branch>] [--format json|human]"
 ---
 
-# Smart Code Reviewer Skill
+# Smart Code Reviewer
 
 Run `smart-review` to detect code drift in AI-generated code — including duplicate code blocks, spec drift, and structural violations.
 
@@ -14,7 +15,7 @@ Call this skill after generating or modifying code, before running `git commit`.
 ## Invocation
 
 ```bash
-smart-review --mode diff --format json
+smart-review scan --mode diff --format json
 ```
 
 ## Options
@@ -61,7 +62,19 @@ When findings are returned, use them as context to revise the generated code:
 
 1. Read each finding's `description` and `reference` to understand the violation
 2. Revise the flagged code at `filePath:lineNumber`
-3. Re-run `smart-review` until exit code is 0
+3. Re-run `smart-review scan` until exit code is 0
+
+## Installing the Plugin
+
+Anyone working on a different project can install this skill into their AI coding agent:
+
+```bash
+# Install into Claude Code (default target: ~/.claude/skills)
+smart-review install-plugin --from https://github.com/sraj5gilead/smart-code-reviewer
+
+# Install into a custom skills directory
+smart-review install-plugin --from https://github.com/sraj5gilead/smart-code-reviewer --target ~/.cursor/skills
+```
 
 ## RC File
 
