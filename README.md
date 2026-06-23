@@ -245,9 +245,12 @@ In diff mode, the engine checks only changed files but searches the full codebas
 
 ```
 smart-code-reviewer/
+├── .agents/
+│   └── plugins/
+│       └── marketplace.json ← Unified cross-agent marketplace entry
 ├── .claude-plugin/
 │   ├── plugin.json          ← Claude Code plugin registry metadata
-│   └── marketplace.json     ← Marketplace entry
+│   └── marketplace.json     ← Claude marketplace entry
 ├── .codex-plugin/
 │   └── plugin.json          ← Codex manifest (skills path + interface block)
 ├── .cursor-plugin/
