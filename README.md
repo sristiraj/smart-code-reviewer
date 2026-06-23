@@ -1,2 +1,227 @@
-# smart-code-reviewer
-Implements deterministic code review patterns to enable human reviewers to handle AI slop better
+# Smart Code Reviewer
+
+Deterministic code drift detection for AI-generated code. Catches duplication, spec drift, and guideline violations before they reach the repo — giving AI coding agents structured findings they can act on to self-correct.
+
+---
+
+## Why
+
+AI coding agents (Claude Code, Codex, Copilot) produce code that passes tests but silently drifts from product spec, duplicates existing functionality, or violates structural principles like DRY, KISS, and YAGNI. Standard linters and test suites don't catch this class of problem.
+
+Smart Code Reviewer sits inside the generation loop — between code being written and code being committed — so findings reach the agent at the moment of generation, not after a human review cycle.
+
+---
+
+## How it works
+
+Three components work together:
+
+**Detection Engine** — runs registered algorithms against your codebase and produces structured findings. Algorithms include Jaccard token-set similarity, TF-IDF cosine similarity, Semgrep rule-based analysis, and any external checker you configure (eslint, tsc, etc.). New algorithms can be added without touching engine core.
+
+**Rules & Configuration** — a per-repo `.smartreviewrc.yaml` file controls which algorithms run, what thresholds to use, the base branch for diff mode, and any external checkers. The engine validates the config at startup before running any checks.
+
+**Integration Layer** — a `smart-review` CLI binary that pre-commit hooks and AI agents invoke. Outputs structured JSON findings to stdout (for agents and tooling) and a human-readable summary to stderr (for engineers). Exit codes follow Unix convention: `0` (clean), `1` (findings), `2` (error).
+
+---
+
+## Installation
+
+### As an npm package
+
+```bash
+npm install -g smart-code-reviewer
+```
+
+### Install the AI agent skill
+
+After installing the package, install the `/smart-review` skill into your AI coding agent's skills directory:
+
+```bash
+# Claude Code (default target: ~/.claude/skills)
+smart-review install-plugin
+
+# Custom target (Cursor, or another agent)
+smart-review install-plugin --target ~/.cursor/skills
+```
+
+### Install skill directly from GitHub (no npm install required)
+
+If you just want the skill without the npm package:
+
+```bash
+# Requires smart-review CLI to already be available globally
+smart-review install-plugin --from https://github.com/sraj5gilead/smart-code-reviewer
+
+# Or clone and install manually
+git clone https://github.com/sraj5gilead/smart-code-reviewer /tmp/smart-code-reviewer
+cp -r /tmp/smart-code-reviewer/skills/smart-review ~/.claude/skills/
+```
+
+### Install via AI agent plugin marketplace
+
+**Claude Code**
+```
+/plugin marketplace add sraj5gilead/smart-code-reviewer
+```
+
+**Codex** — Register the marketplace source pointing to this repo, then install `smart-code-reviewer` from the plugin list.
+
+**Cursor** — Search for `smart-code-reviewer` in the Cursor plugin marketplace.
+
+---
+
+## Usage
+
+### Run a review (diff mode — checks only changed files)
+
+```bash
+smart-review scan
+```
+
+### Run a full codebase review
+
+```bash
+smart-review scan --mode full
+```
+
+### Use inside a Claude Code session
+
+Once the skill is installed, invoke it from any Claude Code session:
+
+```
+/smart-review
+```
+
+### As a pre-commit hook (husky)
+
+```bash
+# .husky/pre-commit
+smart-review scan --mode diff
+```
+
+### As a pre-commit hook (raw git hook)
+
+```bash
+# .git/hooks/pre-commit
+#!/bin/sh
+smart-review scan --mode diff
+```
+
+### As a pre-commit hook (Python pre-commit framework)
+
+```yaml
+# .pre-commit-config.yaml
+repos:
+  - repo: https://github.com/sraj5gilead/smart-code-reviewer
+    rev: v0.1.0
+    hooks:
+      - id: smart-review
+        language: node
+        entry: smart-review scan --mode diff
+```
+
+---
+
+## Configuration
+
+Create `.smartreviewrc.yaml` at the repo root:
+
+```yaml
+base_branch: main
+
+# Run only specific algorithms (XOR with disable — cannot use both)
+# enable:
+#   - jaccard
+#   - cosine-tfidf
+#   - semgrep
+
+# Or exclude specific algorithms
+# disable:
+#   - semgrep
+
+# External checkers — stdout must use file:line: message format
+# external_checkers:
+#   - name: eslint
+#     command: "eslint --format unix ."
+#   - name: tsc-check
+#     command: "tsc --noEmit"
+
+jaccard_threshold: 0.8    # 0.0–1.0, default 0.8
+cosine_threshold: 0.75    # 0.0–1.0, default 0.75
+```
+
+When no RC file is present, all algorithms run with default thresholds against `main`.
+
+---
+
+## Finding schema
+
+Every finding — from any built-in algorithm or external checker — has the same seven fields:
+
+```json
+{
+  "filePath": "src/payments.ts",
+  "lineNumber": 42,
+  "description": "Duplicate code block detected (Jaccard similarity: 91.3%)",
+  "reference": {
+    "filePath": "src/utils/charge.ts",
+    "lineNumber": 15
+  },
+  "detectedAt": "2026-06-22T14:00:00.000Z",
+  "algorithmName": "jaccard",
+  "algorithmMethodology": "token-set similarity"
+}
+```
+
+---
+
+## CLI reference
+
+```
+smart-review scan [options]
+  --mode <full|diff>       Scan mode (default: diff)
+  --base-branch <branch>   Override base branch from RC file
+  --config <path>          RC file path (default: .smartreviewrc.yaml)
+  --format <json|human>    Output format (default: json)
+
+smart-review install-plugin [options]
+  --from <git-url>         Git repo to clone skills from
+  --target <dir>           Skills directory to install into (default: ~/.claude/skills)
+```
+
+---
+
+## Detection algorithms
+
+| Algorithm | Name | Catches |
+|-----------|------|---------|
+| Jaccard similarity | `jaccard` | Copy-paste duplication (exact or near-exact token sets) |
+| TF-IDF cosine | `cosine-tfidf` | Near-duplicate code with similar vocabulary |
+| Semgrep | `semgrep` | Rule-based pattern violations (requires `semgrep` in PATH) |
+| External checker | configured name | Any tool that writes `file:line: message` to stdout |
+
+In diff mode, the engine checks only changed files but searches the full codebase for cross-file references — so a duplicate detected in a new file will point back to the existing copy in an unchanged file.
+
+---
+
+## Plugin structure
+
+```
+smart-code-reviewer/
+├── .claude-plugin/          ← Claude Code plugin registry
+│   ├── plugin.json
+│   └── marketplace.json
+├── .codex-plugin/           ← Codex plugin registry
+│   └── plugin.json
+├── .cursor-plugin/          ← Cursor plugin registry
+│   └── plugin.json
+└── skills/
+    └── smart-review/
+        └── SKILL.md         ← The /smart-review skill definition
+```
+
+---
+
+## License
+
+MIT
