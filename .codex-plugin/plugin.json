@@ -32,9 +32,9 @@
     ],
     "websiteURL": "https://github.com/sraj5gilead/smart-code-reviewer",
     "defaultPrompt": [
+      "/smart-review-init",
       "/smart-review",
-      "/smart-review --mode full",
-      "/smart-review --mode diff --base-branch main"
+      "/smart-review --mode full"
     ],
     "screenshots": []
   }

@@ -70,6 +70,40 @@ cp -r /tmp/smart-code-reviewer/skills/smart-review ~/.claude/skills/
 
 ---
 
+## Set up in your repo
+
+Run the `/smart-review-init` skill inside your AI coding agent — it asks a handful of questions and writes `.smartreviewrc.yaml` for you:
+
+```
+/smart-review-init
+```
+
+The skill will ask about:
+- Your base branch (`main`, `master`, or custom)
+- Which algorithms to run (all, only some, or all except some)
+- Whether semgrep is installed
+- Any external checkers you want to include (eslint, tsc, rubocop, etc.)
+- Similarity thresholds (or keep the defaults)
+
+It then writes the config, confirms the content with you, and prints next steps for wiring up the pre-commit hook.
+
+### Manual setup
+
+If you prefer to write the config yourself, create `.smartreviewrc.yaml` at your repo root and commit it so the whole team uses the same settings:
+
+```bash
+# 1. Create the config (see Configuration section below for all options)
+touch .smartreviewrc.yaml
+
+# 2. Run a full scan to verify the config is valid
+smart-review scan --mode full --format human
+
+# 3. Commit it
+git add .smartreviewrc.yaml && git commit -m "chore: add smart-review config"
+```
+
+---
+
 ## Usage
 
 ### Run a review (diff mode — checks only changed files)
@@ -86,10 +120,11 @@ smart-review scan --mode full
 
 ### Use inside a Claude Code session
 
-Once the skill is installed, invoke it from any Claude Code session:
+Once the plugin is installed, two skills are available:
 
 ```
-/smart-review
+/smart-review-init        ← create or update .smartreviewrc.yaml interactively
+/smart-review             ← run a review and get structured findings
 ```
 
 ### As a pre-commit hook (husky)
@@ -124,7 +159,9 @@ repos:
 
 ## Configuration
 
-Create `.smartreviewrc.yaml` at the repo root:
+> **Quickest path:** run `/smart-review-init` inside Claude Code, Codex, or Cursor — it generates the file for you interactively.
+
+The full set of options for `.smartreviewrc.yaml`:
 
 ```yaml
 base_branch: main
@@ -208,16 +245,18 @@ In diff mode, the engine checks only changed files but searches the full codebas
 
 ```
 smart-code-reviewer/
-├── .claude-plugin/          ← Claude Code plugin registry
-│   ├── plugin.json
-│   └── marketplace.json
-├── .codex-plugin/           ← Codex plugin registry
-│   └── plugin.json
-├── .cursor-plugin/          ← Cursor plugin registry
-│   └── plugin.json
+├── .claude-plugin/
+│   ├── plugin.json          ← Claude Code plugin registry metadata
+│   └── marketplace.json     ← Marketplace entry
+├── .codex-plugin/
+│   └── plugin.json          ← Codex manifest (skills path + interface block)
+├── .cursor-plugin/
+│   └── plugin.json          ← Cursor plugin metadata
 └── skills/
-    └── smart-review/
-        └── SKILL.md         ← The /smart-review skill definition
+    ├── smart-review/
+    │   └── SKILL.md         ← /smart-review — run a review scan
+    └── smart-review-init/
+        └── SKILL.md         ← /smart-review-init — create .smartreviewrc.yaml
 ```
 
 ---
