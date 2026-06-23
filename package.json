@@ -7,6 +7,11 @@
   "bin": {
     "smart-review": "dist/integration/cli.js"
   },
+  "files": [
+    "dist/",
+    "skills/",
+    "plugin.yaml"
+  ],
   "scripts": {
     "build": "tsc",
     "test": "jest",
