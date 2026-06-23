@@ -26,38 +26,37 @@ Three components work together:
 
 ## Installation
 
-### As an npm package
+Smart Code Reviewer has two parts that work together:
+
+| Part | What it does | Required for |
+|------|-------------|--------------|
+| **`smart-review` binary** | Runs the actual detection algorithms | Everything — pre-commit hooks, AI agent skills, CI |
+| **Agent skills** (`/smart-review`, `/smart-review-init`) | Teach your AI agent how to invoke the binary | Using `/smart-review` inside Claude Code / Codex / Cursor |
+
+Install both in two steps:
 
 ```bash
+# Step 1 — install the binary globally
 npm install -g smart-code-reviewer
-```
 
-### Install the AI agent skill
-
-After installing the package, install the `/smart-review` skill into your AI coding agent's skills directory:
-
-```bash
-# Claude Code (default target: ~/.claude/skills)
+# Step 2 — install the agent skills (uses the binary you just installed)
 smart-review install-plugin
-
-# Custom target (Cursor, or another agent)
-smart-review install-plugin --target ~/.cursor/skills
+# installs to ~/.claude/skills by default (Claude Code)
 ```
 
-### Install skill directly from GitHub (no npm install required)
+That's the complete setup. The skill files on their own do nothing — when an AI agent runs `/smart-review`, it executes `smart-review scan` as a shell command, which requires the binary to be present.
 
-If you just want the skill without the npm package:
+### Install skills for a different agent
 
 ```bash
-# Requires smart-review CLI to already be available globally
-smart-review install-plugin --from https://github.com/sraj5gilead/smart-code-reviewer
+# Cursor
+smart-review install-plugin --target ~/.cursor/skills
 
-# Or clone and install manually
-git clone https://github.com/sraj5gilead/smart-code-reviewer /tmp/smart-code-reviewer
-cp -r /tmp/smart-code-reviewer/skills/smart-review ~/.claude/skills/
+# Any custom skills directory
+smart-review install-plugin --target /path/to/agent/skills
 ```
 
-### Install via AI agent plugin marketplace
+### Install from the plugin marketplace
 
 **Claude Code**
 ```
@@ -67,6 +66,16 @@ cp -r /tmp/smart-code-reviewer/skills/smart-review ~/.claude/skills/
 **Codex** — Register the marketplace source pointing to this repo, then install `smart-code-reviewer` from the plugin list.
 
 **Cursor** — Search for `smart-code-reviewer` in the Cursor plugin marketplace.
+
+> The marketplace installs both the binary and the skills in one step.
+
+### Install skills from GitHub (binary already installed via other means)
+
+If you already have `smart-review` in your PATH (installed via npm on another machine, or via a company package registry):
+
+```bash
+smart-review install-plugin --from https://github.com/sraj5gilead/smart-code-reviewer
+```
 
 ---
 
