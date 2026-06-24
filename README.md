@@ -29,7 +29,7 @@ Three components work together:
 ### One command — no prior setup needed
 
 ```bash
-npx smart-drift-detector install-plugin
+npx github:sristiraj/smart-code-reviewer install-plugin
 ```
 
 This does everything in one step:
@@ -44,10 +44,10 @@ No `npm install -g` first. No separate skill copy step. `npx` handles the bootst
 
 ```bash
 # Cursor
-npx smart-drift-detector install-plugin --target ~/.cursor/skills
+npx github:sristiraj/smart-code-reviewer install-plugin --target ~/.cursor/skills
 
 # Any custom skills directory
-npx smart-drift-detector install-plugin --target /path/to/agent/skills
+npx github:sristiraj/smart-code-reviewer install-plugin --target /path/to/agent/skills
 ```
 
 ### Install from the plugin marketplace
@@ -68,7 +68,7 @@ npm install -g github:sristiraj/smart-code-reviewer
 
 **Cursor** — Search for `smart-drift-detector` in the Cursor plugin marketplace. Then install the binary and copy skills:
 ```bash
-npx smart-drift-detector install-plugin --target ~/.cursor/skills
+npx github:sristiraj/smart-code-reviewer install-plugin --target ~/.cursor/skills
 ```
 
 ### Skills only (binary already managed separately)
@@ -76,10 +76,10 @@ npx smart-drift-detector install-plugin --target ~/.cursor/skills
 If your team manages the binary via a company package registry or a shared tool install, you can copy the skills without touching the binary:
 
 ```bash
-npx smart-drift-detector install-plugin --no-binary
+npx github:sristiraj/smart-code-reviewer install-plugin --no-binary
 
 # Or pull skills directly from the git repo
-npx smart-drift-detector install-plugin --from https://github.com/sristiraj/smart-code-reviewer --no-binary
+npx github:sristiraj/smart-code-reviewer install-plugin --from https://github.com/sristiraj/smart-code-reviewer --no-binary
 ```
 
 ---
