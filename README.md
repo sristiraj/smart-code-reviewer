@@ -58,12 +58,12 @@ npx smart-drift-detector install-plugin --target /path/to/agent/skills
 ```
 This installs the plugin and its skills automatically. Then install the `smart-review` binary:
 ```bash
-npm install -g smart-drift-detector
+npm install -g github:sristiraj/smart-code-reviewer
 ```
 
 **Codex** — Register the marketplace source pointing to this repo, then install `smart-drift-detector` from the plugin list. Then install the binary:
 ```bash
-npm install -g smart-drift-detector
+npm install -g github:sristiraj/smart-code-reviewer
 ```
 
 **Cursor** — Search for `smart-drift-detector` in the Cursor plugin marketplace. Then install the binary and copy skills:

@@ -52,7 +52,7 @@ function binaryInPath(): boolean {
 
 async function installBinaryGlobally(out: NodeJS.WritableStream): Promise<void> {
   log('Installing smart-review binary globally via npm ...', out);
-  await execFileAsync('npm', ['install', '-g', 'smart-drift-detector']);
+  await execFileAsync('npm', ['install', '-g', 'github:sristiraj/smart-code-reviewer']);
   log('Binary installed. smart-review is now available in your PATH.', out);
 }
 

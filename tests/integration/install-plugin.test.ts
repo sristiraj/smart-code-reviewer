@@ -64,7 +64,7 @@ describe('installPlugin', () => {
       const calls = (mockedExecFile as any).mock.calls as unknown[][];;
       const npmCall = calls.find((c) => (c[0] as string) === 'npm');
       expect(npmCall).toBeDefined();
-      expect(npmCall![1]).toEqual(['install', '-g', 'smart-drift-detector']);
+      expect(npmCall![1]).toEqual(['install', '-g', 'github:sristiraj/smart-code-reviewer']);
       expect(outCapture).toContain('Installing smart-review binary globally');
     });
 
