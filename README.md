@@ -52,14 +52,23 @@ npx smart-code-reviewer install-plugin --target /path/to/agent/skills
 
 ### Install from the plugin marketplace
 
+The marketplace command registers the plugin. You still need to install the binary and copy the skills separately — run `install-plugin` after:
+
 **Claude Code**
 ```
 /plugin marketplace add sristiraj/smart-code-reviewer
+npx smart-code-reviewer install-plugin
 ```
 
-**Codex** — Register the marketplace source pointing to this repo, then install `smart-code-reviewer` from the plugin list.
+**Codex** — Register the marketplace source pointing to this repo, install `smart-code-reviewer` from the plugin list, then run:
+```bash
+npx smart-code-reviewer install-plugin
+```
 
-**Cursor** — Search for `smart-code-reviewer` in the Cursor plugin marketplace.
+**Cursor** — Search for `smart-code-reviewer` in the Cursor plugin marketplace, then run:
+```bash
+npx smart-code-reviewer install-plugin --target ~/.cursor/skills
+```
 
 ### Skills only (binary already managed separately)
 
