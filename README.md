@@ -40,36 +40,24 @@ No `npm install -g` first. No separate skill copy step. `npx` handles the bootst
 
 > **Why both are needed:** The agent skills (`/smart-review`, `/smart-review-init`) are instructions that tell your AI agent what to do. When the agent runs `/smart-review`, it shells out to `smart-review scan`. If the binary is not installed, that command fails. `install-plugin` installs both so they work together.
 
-### Install for a different agent
-
-```bash
-# Cursor
-npx github:sristiraj/smart-code-reviewer install-plugin --target ~/.cursor/skills
-
-# Any custom skills directory
-npx github:sristiraj/smart-code-reviewer install-plugin --target /path/to/agent/skills
-```
-
-### Install from the plugin marketplace
+### Install for a specific agent
 
 **Claude Code**
-```
-/plugin install sristiraj/smart-code-reviewer
-```
-Then install the `smart-review` binary:
 ```bash
-npm install -g github:sristiraj/smart-code-reviewer
+npx github:sristiraj/smart-code-reviewer install-plugin
 ```
 
-**Codex** — Register the marketplace source pointing to this repo, then install `smart-drift-detector` from the plugin list. Then install the binary:
+**Codex**
 ```bash
-npm install -g github:sristiraj/smart-code-reviewer
+npx github:sristiraj/smart-code-reviewer install-plugin --target ~/.codex/skills
 ```
 
-**Cursor** — Search for `smart-drift-detector` in the Cursor plugin marketplace. Then install the binary and copy skills:
+**Cursor**
 ```bash
 npx github:sristiraj/smart-code-reviewer install-plugin --target ~/.cursor/skills
 ```
+
+> **Why not `/plugin install`?** Claude Code's `/plugin install` command installs the plugin manifest but does not copy skills into `~/.claude/skills`. The `install-plugin` command above handles both the binary and the skills in one step.
 
 ### Skills only (binary already managed separately)
 
