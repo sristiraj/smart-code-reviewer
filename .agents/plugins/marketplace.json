@@ -1,11 +1,11 @@
 {
-  "name": "smart-code-reviewer-plugin",
+  "name": "smart-drift-detector-plugin",
   "interface": {
     "displayName": "Smart Code Reviewer"
   },
   "plugins": [
     {
-      "name": "smart-code-reviewer",
+      "name": "smart-drift-detector",
       "source": {
         "source": "url",
         "url": "https://github.com/sristiraj/smart-code-reviewer.git"

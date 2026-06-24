@@ -27,7 +27,7 @@ which smart-review
 Then run:
 
 ```bash
-npx smart-code-reviewer install-plugin
+npx smart-drift-detector install-plugin
 ```
 
 This installs the binary globally via npm and copies the agent skills in one step. After it completes, confirm `smart-review` is now in PATH:

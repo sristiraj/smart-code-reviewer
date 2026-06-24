@@ -131,7 +131,7 @@ sequenceDiagram
 ## Output Structure
 
 ```
-smart-code-reviewer/
+smart-drift-detector/
 ├── src/
 │   ├── types/
 │   │   └── index.ts              # U1: Finding, Algorithm, RCConfig, ScanResult

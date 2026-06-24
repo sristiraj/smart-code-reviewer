@@ -1,5 +1,5 @@
 {
-  "name": "smart-code-reviewer-plugin",
+  "name": "smart-drift-detector-plugin",
   "owner": {
     "name": "sristiraj",
     "url": "https://github.com/sristiraj"
@@ -10,7 +10,7 @@
   },
   "plugins": [
     {
-      "name": "smart-code-reviewer",
+      "name": "smart-drift-detector",
       "description": "Catch code drift before it hits the repo. Detects duplication, spec drift, and guideline violations in AI-generated code using deterministic checks.",
       "author": {
         "name": "sristiraj",

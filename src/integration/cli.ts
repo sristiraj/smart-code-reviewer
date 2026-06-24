@@ -108,7 +108,7 @@ export async function runCli(
     .command('install-plugin')
     .description(
       'Install the smart-review binary (if not already present) and agent skills in one step. ' +
-      'Safe to run via npx: npx smart-code-reviewer install-plugin'
+      'Safe to run via npx: npx smart-drift-detector install-plugin'
     )
     .option(
       '--from <git-url>',

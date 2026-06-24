@@ -172,7 +172,7 @@ describe('CLI install-plugin command', () => {
 
     await runCli([
       'node', 'smart-review', 'install-plugin',
-      '--from', 'https://github.com/example/smart-code-reviewer',
+      '--from', 'https://github.com/example/smart-drift-detector',
       '--target', targetDir,
     ], registry);
 

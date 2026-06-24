@@ -2,9 +2,9 @@
 title: "Smart Code Reviewer: Logic Errors Resolved During Initial TypeScript Implementation"
 date: 2026-06-23
 category: logic-errors
-module: smart-code-reviewer
+module: smart-drift-detector
 problem_type: logic_error
-component: smart-code-reviewer
+component: smart-drift-detector
 symptoms:
   - TF-IDF cosine similarity always returned 0 for near-duplicate file pairs
   - CLI binary presence check threw errors on valid installs
@@ -12,7 +12,7 @@ symptoms:
   - "Git clone destination path was undefined in test assertions"
   - "TypeScript compile error: process.exitCode not assignable to number"
   - ESM incompatibility blocked entire test suite build
-  - "/plugin marketplace add <user>/smart-code-reviewer returned Repository not found"
+  - "/plugin marketplace add <user>/smart-drift-detector returned Repository not found"
 root_cause: incorrect_assumption
 resolution_type: code_fix
 severity: high
@@ -30,7 +30,7 @@ tags:
 
 ## Problem
 
-During initial TypeScript implementation of the `smart-code-reviewer` npm package, seven discrete logic errors were encountered across detection algorithms, CLI binary management, plugin distribution, and test infrastructure. Each error blocked a different part of the system from functioning correctly.
+During initial TypeScript implementation of the `smart-drift-detector` npm package, seven discrete logic errors were encountered across detection algorithms, CLI binary management, plugin distribution, and test infrastructure. Each error blocked a different part of the system from functioning correctly.
 
 ## Symptoms
 
@@ -40,7 +40,7 @@ During initial TypeScript implementation of the `smart-code-reviewer` npm packag
 - Test assertions on git clone destination path always received `undefined`
 - TypeScript compile error: `process.exitCode` of type `string | number | undefined` not assignable to `number`
 - Test suite build failed entirely: `SyntaxError: Cannot use import statement in module` from `afinn-165`
-- Running `/plugin marketplace add sraj5gilead/smart-code-reviewer` returned "Repository not found"
+- Running `/plugin marketplace add sraj5gilead/smart-drift-detector` returned "Repository not found"
 
 ## What Didn't Work
 

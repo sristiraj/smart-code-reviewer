@@ -29,7 +29,7 @@ Three components work together:
 ### One command — no prior setup needed
 
 ```bash
-npx smart-code-reviewer install-plugin
+npx smart-drift-detector install-plugin
 ```
 
 This does everything in one step:
@@ -44,10 +44,10 @@ No `npm install -g` first. No separate skill copy step. `npx` handles the bootst
 
 ```bash
 # Cursor
-npx smart-code-reviewer install-plugin --target ~/.cursor/skills
+npx smart-drift-detector install-plugin --target ~/.cursor/skills
 
 # Any custom skills directory
-npx smart-code-reviewer install-plugin --target /path/to/agent/skills
+npx smart-drift-detector install-plugin --target /path/to/agent/skills
 ```
 
 ### Install from the plugin marketplace
@@ -57,17 +57,17 @@ The marketplace command registers the plugin. You still need to install the bina
 **Claude Code**
 ```
 /plugin marketplace add sristiraj/smart-code-reviewer
-npx smart-code-reviewer install-plugin
+npx smart-drift-detector install-plugin
 ```
 
-**Codex** — Register the marketplace source pointing to this repo, install `smart-code-reviewer` from the plugin list, then run:
+**Codex** — Register the marketplace source pointing to this repo, install `smart-drift-detector` from the plugin list, then run:
 ```bash
-npx smart-code-reviewer install-plugin
+npx smart-drift-detector install-plugin
 ```
 
-**Cursor** — Search for `smart-code-reviewer` in the Cursor plugin marketplace, then run:
+**Cursor** — Search for `smart-drift-detector` in the Cursor plugin marketplace, then run:
 ```bash
-npx smart-code-reviewer install-plugin --target ~/.cursor/skills
+npx smart-drift-detector install-plugin --target ~/.cursor/skills
 ```
 
 ### Skills only (binary already managed separately)
@@ -75,10 +75,10 @@ npx smart-code-reviewer install-plugin --target ~/.cursor/skills
 If your team manages the binary via a company package registry or a shared tool install, you can copy the skills without touching the binary:
 
 ```bash
-npx smart-code-reviewer install-plugin --no-binary
+npx smart-drift-detector install-plugin --no-binary
 
 # Or pull skills directly from the git repo
-npx smart-code-reviewer install-plugin --from https://github.com/sristiraj/smart-code-reviewer --no-binary
+npx smart-drift-detector install-plugin --from https://github.com/sristiraj/smart-code-reviewer --no-binary
 ```
 
 ---
@@ -257,7 +257,7 @@ In diff mode, the engine checks only changed files but searches the full codebas
 ## Plugin structure
 
 ```
-smart-code-reviewer/
+smart-drift-detector/
 ├── .agents/
 │   └── plugins/
 │       └── marketplace.json ← Unified cross-agent marketplace entry

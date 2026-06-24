@@ -58,13 +58,13 @@ describe('installPlugin', () => {
       mockGitCloneWithSkills();
 
       const targetDir = makeTargetDir();
-      await installPlugin({ from: 'https://github.com/example/smart-code-reviewer', target: targetDir, out });
+      await installPlugin({ from: 'https://github.com/example/smart-drift-detector', target: targetDir, out });
 
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const calls = (mockedExecFile as any).mock.calls as unknown[][];;
       const npmCall = calls.find((c) => (c[0] as string) === 'npm');
       expect(npmCall).toBeDefined();
-      expect(npmCall![1]).toEqual(['install', '-g', 'smart-code-reviewer']);
+      expect(npmCall![1]).toEqual(['install', '-g', 'smart-drift-detector']);
       expect(outCapture).toContain('Installing smart-review binary globally');
     });
 
@@ -73,7 +73,7 @@ describe('installPlugin', () => {
       mockGitCloneWithSkills();
 
       const targetDir = makeTargetDir();
-      await installPlugin({ from: 'https://github.com/example/smart-code-reviewer', target: targetDir, out });
+      await installPlugin({ from: 'https://github.com/example/smart-drift-detector', target: targetDir, out });
 
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const calls = (mockedExecFile as any).mock.calls as unknown[][];
@@ -87,7 +87,7 @@ describe('installPlugin', () => {
 
       const targetDir = makeTargetDir();
       await installPlugin({
-        from: 'https://github.com/example/smart-code-reviewer',
+        from: 'https://github.com/example/smart-drift-detector',
         target: targetDir,
         installBinary: false,
         out,
@@ -107,7 +107,7 @@ describe('installPlugin', () => {
       mockGitCloneWithSkills('# Smart Review Skill\n');
 
       const targetDir = makeTargetDir();
-      await installPlugin({ from: 'https://github.com/example/smart-code-reviewer', target: targetDir, out });
+      await installPlugin({ from: 'https://github.com/example/smart-drift-detector', target: targetDir, out });
 
       const installedSkill = path.join(targetDir, 'smart-review', 'SKILL.md');
       expect(fs.existsSync(installedSkill)).toBe(true);
@@ -119,7 +119,7 @@ describe('installPlugin', () => {
       mockGitCloneWithSkills();
 
       const targetDir = makeTargetDir();
-      await installPlugin({ from: 'https://github.com/example/smart-code-reviewer', target: targetDir, out });
+      await installPlugin({ from: 'https://github.com/example/smart-drift-detector', target: targetDir, out });
 
       expect(outCapture).toContain('smart-review');
       expect(outCapture).toContain('installed successfully');
@@ -168,7 +168,7 @@ describe('installPlugin', () => {
       const tmpTarget = fs.mkdtempSync(path.join(os.homedir(), '.smart-review-test-'));
       try {
         const homeRelative = '~' + tmpTarget.slice(os.homedir().length);
-        await installPlugin({ from: 'https://github.com/example/smart-code-reviewer', target: homeRelative, out });
+        await installPlugin({ from: 'https://github.com/example/smart-drift-detector', target: homeRelative, out });
         expect(fs.existsSync(path.join(tmpTarget, 'smart-review', 'SKILL.md'))).toBe(true);
       } finally {
         fs.rmSync(tmpTarget, { recursive: true, force: true });
