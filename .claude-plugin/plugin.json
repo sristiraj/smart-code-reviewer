@@ -17,5 +17,6 @@
     "drift-detection",
     "duplication",
     "typescript"
-  ]
+  ],
+  "skills": "./skills"
 }
