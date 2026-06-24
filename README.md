@@ -55,8 +55,9 @@ npx github:sristiraj/smart-code-reviewer install-plugin --target /path/to/agent/
 **Claude Code**
 ```
 /plugin marketplace add sristiraj/smart-code-reviewer
+/plugin install smart-drift-detector
 ```
-This installs the plugin and its skills automatically. Then install the `smart-review` binary:
+Then install the `smart-review` binary:
 ```bash
 npm install -g github:sristiraj/smart-code-reviewer
 ```
